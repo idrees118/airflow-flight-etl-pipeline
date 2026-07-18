@@ -1,0 +1,176 @@
+[2026-07-18T15:35:06.375+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-07-18T15:35:06.388+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: flight_pipeline.clean_flights scheduled__2026-07-18T15:30:00+00:00 [queued]>
+[2026-07-18T15:35:06.393+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: flight_pipeline.clean_flights scheduled__2026-07-18T15:30:00+00:00 [queued]>
+[2026-07-18T15:35:06.393+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 1
+[2026-07-18T15:35:06.399+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): clean_flights> on 2026-07-18 15:30:00+00:00
+[2026-07-18T15:35:06.404+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=149) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2026-07-18T15:35:06.406+0000] {standard_task_runner.py:72} INFO - Started process 150 to run task
+[2026-07-18T15:35:06.407+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'flight_pipeline', 'clean_flights', 'scheduled__2026-07-18T15:30:00+00:00', '--job-id', '30', '--raw', '--subdir', 'DAGS_FOLDER/flight_pipeline_dag.py', '--cfg-path', '/tmp/tmp_6mqwfg3']
+[2026-07-18T15:35:06.409+0000] {standard_task_runner.py:105} INFO - Job 30: Subtask clean_flights
+[2026-07-18T15:35:06.446+0000] {task_command.py:467} INFO - Running <TaskInstance: flight_pipeline.clean_flights scheduled__2026-07-18T15:30:00+00:00 [running]> on host 059f20b80942
+[2026-07-18T15:35:06.685+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='flight_pipeline' AIRFLOW_CTX_TASK_ID='clean_flights' AIRFLOW_CTX_EXECUTION_DATE='2026-07-18T15:30:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-07-18T15:30:00+00:00'
+[2026-07-18T15:35:06.686+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-07-18T15:35:06.699+0000] {logging_mixin.py:190} INFO - 
+========== SILVER LAYER ==========
+[2026-07-18T15:35:06.889+0000] {clean_flights.py:61} INFO - Silver data saved to: data/silver/flights_latest.parquet
+[2026-07-18T15:35:06.915+0000] {logging_mixin.py:190} INFO -    icao24 callsign origin_country  ... squawk    spi  position_source
+0  39de4f  TVF8964         France  ...   2653  False                0
+1  a5f852   RTY484  United States  ...   None  False                0
+2  80162c   AXB951          India  ...   None  False                0
+3  a09283  XAA7642  United States  ...   7661  False                0
+4  aa3cbe   N759PA  United States  ...   None  False                0
+
+[5 rows x 16 columns]
+[2026-07-18T15:35:06.916+0000] {logging_mixin.py:190} INFO - 
+Rows: 12887
+[2026-07-18T15:35:06.916+0000] {logging_mixin.py:190} INFO - Columns: 16
+[2026-07-18T15:35:06.916+0000] {logging_mixin.py:190} INFO - 
+========== DATA TYPES ==========
+[2026-07-18T15:35:06.916+0000] {logging_mixin.py:190} INFO - icao24                     object
+callsign                   object
+origin_country             object
+time_position      datetime64[ns]
+last_contact       datetime64[ns]
+longitude                 float64
+latitude                  float64
+baro_altitude             float64
+on_ground                    bool
+velocity                  float64
+true_track                float64
+vertical_rate             float64
+geo_altitude              float64
+squawk                     object
+spi                          bool
+position_source             int64
+dtype: object
+[2026-07-18T15:35:06.916+0000] {logging_mixin.py:190} INFO - 
+========== MISSING VALUES ==========
+[2026-07-18T15:35:06.919+0000] {logging_mixin.py:190} INFO - icao24                0
+callsign              0
+origin_country        0
+time_position         0
+last_contact          0
+longitude             0
+latitude              0
+baro_altitude      1125
+on_ground             0
+velocity              3
+true_track            0
+vertical_rate      1147
+geo_altitude       1266
+squawk             5382
+spi                   0
+position_source       0
+dtype: int64
+[2026-07-18T15:35:06.919+0000] {logging_mixin.py:190} INFO - 
+========== DUPLICATE ROWS ==========
+[2026-07-18T15:35:06.925+0000] {logging_mixin.py:190} INFO - 0
+[2026-07-18T15:35:06.925+0000] {logging_mixin.py:190} INFO - 
+========== NUMERIC SUMMARY ==========
+[2026-07-18T15:35:06.959+0000] {logging_mixin.py:190} INFO -                        time_position  ... position_source
+count                          12887  ...         12887.0
+mean   2026-07-18 15:34:14.527663360  ...             0.0
+min              2026-07-18 06:56:36  ...             0.0
+25%              2026-07-18 15:34:58  ...             0.0
+50%              2026-07-18 15:35:00  ...             0.0
+75%              2026-07-18 15:35:00  ...             0.0
+max              2026-07-18 15:35:01  ...             0.0
+std                              NaN  ...             0.0
+
+[8 rows x 10 columns]
+[2026-07-18T15:35:06.962+0000] {python.py:240} INFO - Done. Returned value was: data/silver/flights_latest.parquet
+[2026-07-18T15:35:06.992+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-07-18T15:35:06.993+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=flight_pipeline, task_id=clean_flights, run_id=scheduled__2026-07-18T15:30:00+00:00, execution_date=20260718T153000, start_date=20260718T153506, end_date=20260718T153506
+[2026-07-18T15:35:07.044+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-07-18T15:35:07.075+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-07-18T15:35:07.075+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2026-07-18T15:37:10.113+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-07-18T15:37:10.130+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: flight_pipeline.clean_flights scheduled__2026-07-18T15:30:00+00:00 [queued]>
+[2026-07-18T15:37:10.134+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: flight_pipeline.clean_flights scheduled__2026-07-18T15:30:00+00:00 [queued]>
+[2026-07-18T15:37:10.135+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 1
+[2026-07-18T15:37:10.140+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): clean_flights> on 2026-07-18 15:30:00+00:00
+[2026-07-18T15:37:10.146+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=55) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2026-07-18T15:37:10.147+0000] {standard_task_runner.py:72} INFO - Started process 56 to run task
+[2026-07-18T15:37:10.148+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'flight_pipeline', 'clean_flights', 'scheduled__2026-07-18T15:30:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/flight_pipeline_dag.py', '--cfg-path', '/tmp/tmp0yd5ipnn']
+[2026-07-18T15:37:10.150+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask clean_flights
+[2026-07-18T15:37:10.190+0000] {task_command.py:467} INFO - Running <TaskInstance: flight_pipeline.clean_flights scheduled__2026-07-18T15:30:00+00:00 [running]> on host 972dbb4d320f
+[2026-07-18T15:37:10.461+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='flight_pipeline' AIRFLOW_CTX_TASK_ID='clean_flights' AIRFLOW_CTX_EXECUTION_DATE='2026-07-18T15:30:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-07-18T15:30:00+00:00'
+[2026-07-18T15:37:10.462+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-07-18T15:37:10.477+0000] {logging_mixin.py:190} INFO - 
+========== SILVER LAYER ==========
+[2026-07-18T15:37:10.614+0000] {clean_flights.py:61} INFO - Silver data saved to: data/silver/flights_latest.parquet
+[2026-07-18T15:37:10.636+0000] {logging_mixin.py:190} INFO -    icao24 callsign origin_country  ... squawk    spi  position_source
+0  39de4f  TVF8964         France  ...   2653  False                0
+1  a5f852   RTY484  United States  ...   None  False                0
+2  80162c   AXB951          India  ...   None  False                0
+3  a09283  XAA7642  United States  ...   7661  False                0
+4  aa3cbe   N759PA  United States  ...   None  False                0
+
+[5 rows x 16 columns]
+[2026-07-18T15:37:10.637+0000] {logging_mixin.py:190} INFO - 
+Rows: 12866
+[2026-07-18T15:37:10.637+0000] {logging_mixin.py:190} INFO - Columns: 16
+[2026-07-18T15:37:10.637+0000] {logging_mixin.py:190} INFO - 
+========== DATA TYPES ==========
+[2026-07-18T15:37:10.638+0000] {logging_mixin.py:190} INFO - icao24                     object
+callsign                   object
+origin_country             object
+time_position      datetime64[ns]
+last_contact       datetime64[ns]
+longitude                 float64
+latitude                  float64
+baro_altitude             float64
+on_ground                    bool
+velocity                  float64
+true_track                float64
+vertical_rate             float64
+geo_altitude              float64
+squawk                     object
+spi                          bool
+position_source             int64
+dtype: object
+[2026-07-18T15:37:10.638+0000] {logging_mixin.py:190} INFO - 
+========== MISSING VALUES ==========
+[2026-07-18T15:37:10.642+0000] {logging_mixin.py:190} INFO - icao24                0
+callsign              0
+origin_country        0
+time_position         0
+last_contact          0
+longitude             0
+latitude              0
+baro_altitude      1133
+on_ground             0
+velocity              5
+true_track            0
+vertical_rate      1160
+geo_altitude       1272
+squawk             5370
+spi                   0
+position_source       0
+dtype: int64
+[2026-07-18T15:37:10.642+0000] {logging_mixin.py:190} INFO - 
+========== DUPLICATE ROWS ==========
+[2026-07-18T15:37:10.648+0000] {logging_mixin.py:190} INFO - 0
+[2026-07-18T15:37:10.649+0000] {logging_mixin.py:190} INFO - 
+========== NUMERIC SUMMARY ==========
+[2026-07-18T15:37:10.702+0000] {logging_mixin.py:190} INFO -                        time_position  ... position_source
+count                          12866  ...         12866.0
+mean   2026-07-18 15:36:14.510104320  ...             0.0
+min              2026-07-18 06:56:36  ...             0.0
+25%              2026-07-18 15:36:58  ...             0.0
+50%              2026-07-18 15:37:00  ...             0.0
+75%              2026-07-18 15:37:00  ...             0.0
+max              2026-07-18 15:37:01  ...             0.0
+std                              NaN  ...             0.0
+
+[8 rows x 10 columns]
+[2026-07-18T15:37:10.704+0000] {python.py:240} INFO - Done. Returned value was: data/silver/flights_latest.parquet
+[2026-07-18T15:37:10.727+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-07-18T15:37:10.728+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=flight_pipeline, task_id=clean_flights, run_id=scheduled__2026-07-18T15:30:00+00:00, execution_date=20260718T153000, start_date=20260718T153710, end_date=20260718T153710
+[2026-07-18T15:37:10.780+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-07-18T15:37:10.809+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-07-18T15:37:10.811+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

@@ -1,0 +1,21 @@
+[2026-07-18T16:02:22.024+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-07-18T16:02:22.038+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: flight_pipeline.create_gold scheduled__2026-07-18T15:55:00+00:00 [queued]>
+[2026-07-18T16:02:22.045+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: flight_pipeline.create_gold scheduled__2026-07-18T15:55:00+00:00 [queued]>
+[2026-07-18T16:02:22.045+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 1
+[2026-07-18T16:02:22.052+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): create_gold> on 2026-07-18 15:55:00+00:00
+[2026-07-18T16:02:22.058+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=77) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2026-07-18T16:02:22.059+0000] {standard_task_runner.py:72} INFO - Started process 81 to run task
+[2026-07-18T16:02:22.060+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'flight_pipeline', 'create_gold', 'scheduled__2026-07-18T15:55:00+00:00', '--job-id', '8', '--raw', '--subdir', 'DAGS_FOLDER/flight_pipeline_dag.py', '--cfg-path', '/tmp/tmpkbznr0g7']
+[2026-07-18T16:02:22.062+0000] {standard_task_runner.py:105} INFO - Job 8: Subtask create_gold
+[2026-07-18T16:02:22.092+0000] {task_command.py:467} INFO - Running <TaskInstance: flight_pipeline.create_gold scheduled__2026-07-18T15:55:00+00:00 [running]> on host 84ce6de5190b
+[2026-07-18T16:02:22.342+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='flight_pipeline' AIRFLOW_CTX_TASK_ID='create_gold' AIRFLOW_CTX_EXECUTION_DATE='2026-07-18T15:55:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-07-18T15:55:00+00:00'
+[2026-07-18T16:02:22.343+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-07-18T16:02:22.433+0000] {create_gold.py:50} INFO - Gold data saved to: data/gold/flight_summary_latest.parquet
+[2026-07-18T16:02:22.434+0000] {python.py:240} INFO - Done. Returned value was: data/gold/flight_summary_latest.parquet
+[2026-07-18T16:02:22.463+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-07-18T16:02:22.463+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=flight_pipeline, task_id=create_gold, run_id=scheduled__2026-07-18T15:55:00+00:00, execution_date=20260718T155500, start_date=20260718T160222, end_date=20260718T160222
+[2026-07-18T16:02:22.526+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-07-18T16:02:22.558+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-07-18T16:02:22.560+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

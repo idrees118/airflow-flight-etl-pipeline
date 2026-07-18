@@ -1,0 +1,91 @@
+version: "3.9"
+
+x-airflow-common: &airflow-common
+  image: apache/airflow:2.10.5
+
+  environment:
+    AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres/airflow
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@airflow-postgres/airflow
+    AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
+    AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+
+  volumes:
+    - ../dags:/opt/airflow/dags
+    - ../logs:/opt/airflow/logs
+    - ../src:/opt/airflow/src
+
+  depends_on:
+    airflow-postgres:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+
+services:
+
+  airflow-postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: flights_db
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7.2-bookworm
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  airflow-init:
+    <<: *airflow-common
+    entrypoint: /bin/bash
+    command: >
+      -c "
+      airflow db migrate &&
+      airflow users create
+      --username admin
+      --password admin
+      --firstname Admin
+      --lastname User
+      --role Admin
+      --email admin@example.com || true
+      "
+
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - "8080:8080"
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+
+  airflow-triggerer:
+    <<: *airflow-common
+    command: triggerer
+
+  airflow-worker:
+    <<: *airflow-common
+    command: celery worker
